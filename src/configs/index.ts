@@ -1,0 +1,1 @@
+export { default as MongoDbConfigs } from './mongodb.config';
