@@ -7,6 +7,7 @@ import { SubCategoryModule } from './apis/subCategory/subCategory.module';
 import { FeedbackModule } from './apis/feedbackImage/feedback.module';
 import { UserModule } from './apis/user/user.module';
 import { MongoDbConfigs } from './configs';
+import { BlogModule } from './apis/blog/blog.module';
 
 @Module({
   imports: [
@@ -37,6 +38,8 @@ import { MongoDbConfigs } from './configs';
     SubCategoryModule,
 
     FeedbackModule,
+
+    BlogModule
   ],
   controllers: [],
   providers: [],

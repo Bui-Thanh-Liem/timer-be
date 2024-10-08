@@ -1,4 +1,5 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
+import { ETimer, ETypeTimer } from 'src/enums/common.enum';
 
 export interface IBaseModel {
   _id: string;
@@ -36,7 +37,7 @@ export interface IImage extends IBaseModel {
   deletedAt: Date;
   deletedBy: IUser | Types.ObjectId;
   createdBy: IUser | Types.ObjectId;
-  updatedBy: IUser | Types.ObjectId ;
+  updatedBy: IUser | Types.ObjectId;
 }
 
 export interface IImageLocal extends IBaseModel {
@@ -49,7 +50,7 @@ export interface IImageLocal extends IBaseModel {
   deletedAt: Date;
   deletedBy: IUser | Types.ObjectId;
   createdBy: IUser | Types.ObjectId;
-  updatedBy: IUser | Types.ObjectId ;
+  updatedBy: IUser | Types.ObjectId;
 }
 
 export interface IFeedBack extends IBaseModel {
@@ -61,10 +62,24 @@ export interface IFeedBack extends IBaseModel {
   deletedAt: Date;
   deletedBy: IUser | Types.ObjectId;
   createdBy: IUser | Types.ObjectId;
-  updatedBy: IUser | Types.ObjectId ;
+  updatedBy: IUser | Types.ObjectId;
+}
+
+export interface IBlog extends IBaseModel {
+  title: string;
+  content: string;
+  thumb: string;
+  timer: ITimer;
+  schedule: ETimer;
+  createdBy: IUser | Types.ObjectId;
 }
 
 export interface ICategory extends IBaseModel {
   name: string;
   subCategoriesID: Array<string>;
+}
+
+export class ITimer {
+  type: ETypeTimer;
+  value: number;
 }

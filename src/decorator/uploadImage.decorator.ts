@@ -4,7 +4,7 @@ import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 
 export function UploadImages(properties?: any, title?: string) {
   const defaultUpload = {
-    images: {
+    thumb: {
       type: 'array',
       items: {
         type: 'string',
@@ -15,7 +15,7 @@ export function UploadImages(properties?: any, title?: string) {
 
   return applyDecorators(
     UseInterceptors(
-      FilesInterceptor('images', 20, {
+      FilesInterceptor('thumb', 20, {
         limits: {
           fileSize: (1024 * 1024 * 10), // Giới hạn kích thước file
           fieldNameSize: 20, // Giới hạn kích thước tên trường

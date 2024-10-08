@@ -59,7 +59,7 @@ async function bootstrap() {
   const documentSwagger = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('/api', app, documentSwagger);
 
-  await app.listen(process.env.SERVER_PORT || 3006);
+  await app.listen(process.env.SERVER_PORT || 9000);
 
   if (module.hot) {
     module.hot.accept();
