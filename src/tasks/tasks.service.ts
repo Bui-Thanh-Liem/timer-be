@@ -67,8 +67,11 @@ export class TasksService {
   // }
   private handleGeneratorCronTime(cronTime: ITimer) {
     const toJS = JSON.parse(cronTime as any);
+    if(!toJS.date || !toJS.time) {
+      return "";
+    }
     const [day, month, year] = toJS.date.split('-');
     const [hours, minute] = toJS.time.split(':');
-    return `* ${minute} ${hours} ${day} ${month} *` || '';
+    return `* ${minute} ${hours} ${day} ${month} *`;
   }
 }
