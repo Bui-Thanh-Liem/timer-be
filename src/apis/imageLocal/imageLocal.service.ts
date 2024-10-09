@@ -112,9 +112,6 @@ export class ImageLocalService {
       const arrUrl = url.split('/');
       const findIndex = arrUrl.findIndex((r) => r.includes('uploads'));
       const subUrl = `public/${arrUrl.slice(findIndex).join('/')}`;
-      console.log('findIndex:::', findIndex);
-      console.log('subUrl:::', subUrl);
-      // return true;
 
       fs.rm(subUrl, (err) => {
         if (err) {

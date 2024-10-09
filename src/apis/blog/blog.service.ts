@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 import { IBlog } from 'src/interfaces/models';
 import { ImageLocalService } from '../imageLocal/imageLocal.service';
 import { CreateBlogDto, UpdateBlogDto } from './blog.dto';
-import { ETimer, ETypeTimer } from 'src/enums/common.enum';
+import { ETimer } from 'src/enums/common.enum';
 
 @Injectable()
 export class BlogService {
@@ -46,10 +46,7 @@ export class BlogService {
 
       // 
       let toJS = JSON.parse(dataCreate.timer as any);
-      if(!Object.keys(ETypeTimer).includes(toJS?.type)) {
-        throw new BadRequestException('Timer type is invalid');
-      }
-      const schedule = toJS?.type !== ETypeTimer.NO ? ETimer.SCHEDULED : ETimer.NO;
+      const schedule = (toJS.date && toJS.time) ? ETimer.SCHEDULED : ETimer.NO;
       
       const data: Partial<IBlog> = {
         ...dataCreate,
@@ -84,12 +81,8 @@ export class BlogService {
       }
 
       // 
-      let toJS = JSON.parse(dataUpdate?.timer as any);
-      if(!Object.keys(ETypeTimer).includes(toJS?.type)) {
-        throw new BadRequestException('Timer type is invalid');
-      }
-      const schedule = toJS?.type !== ETypeTimer.NO ? ETimer.SCHEDULED : ETimer.NO;
-      
+      let toJS = JSON.parse(dataUpdate.timer as any);
+      const schedule = (toJS.date && toJS.time) ? ETimer.SCHEDULED : ETimer.NO;
       
       await this.blogModel.findOneAndUpdate(
         {
@@ -97,7 +90,9 @@ export class BlogService {
         },
         { $set: { ...dataUpdate, schedule: schedule } },
       );
-      return true;
+
+      const findBlogThenUpdate = await this.blogModel.findById(id);
+      return findBlogThenUpdate;
     } catch (error) {
       throw error;
     }

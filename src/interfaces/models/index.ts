@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { ETimer, ETypeTimer } from 'src/enums/common.enum';
+import { ETimer } from 'src/enums/common.enum';
 
 export interface IBaseModel {
   _id: string;
@@ -79,7 +79,11 @@ export interface ICategory extends IBaseModel {
   subCategoriesID: Array<string>;
 }
 
+// export class ITimer {
+//   type: ETypeTimer;
+//   value: number;
+// }
 export class ITimer {
-  type: ETypeTimer;
-  value: number;
+  date: string;
+  time: string;
 }

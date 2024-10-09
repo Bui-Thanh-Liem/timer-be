@@ -16,11 +16,12 @@ import { Request } from 'express';
 import {
   CreateBlogDto, UpdateBlogDto,
 } from './blog.dto';
+import { TasksService } from 'src/tasks/tasks.service';
 
 @Controller('blog')
 @ApiTags('blog')
 export class BlogController {
-  constructor(private blogService: BlogService) {}
+  constructor(private blogService: BlogService, private taskService: TasksService) {}
 
   @Post()
   @ApiOperation({ summary: 'Tạo một blog' })
@@ -44,8 +45,8 @@ export class BlogController {
       type: 'object',
       description: 'Timer',
       default: {
-        type: "NO",
-        value: "0"
+        date: "08-01-2000",
+        time: "19:40"
       }
     },
   })
@@ -54,12 +55,12 @@ export class BlogController {
     @UploadedFiles() uploadedFiles: Array<Express.Multer.File>,
     @Body() dataCreateBlog: CreateBlogDto,
   ) {
-    console.log("dataCreateBlog:::", dataCreateBlog);
     const newFeedback = await this.blogService.create(
       req,
       dataCreateBlog,
       uploadedFiles,
     );
+    this.taskService.createCronJob(newFeedback);
 
     return new AResponseOk({
       message: 'Đã tạo ảnh phản hồi thành công',
@@ -88,8 +89,8 @@ export class BlogController {
       type: 'object',
       description: 'Timer',
       default: {
-        type: "NO",
-        value: "0"
+        date: "08-01-2000",
+        time: "19:40"
       }
     },
   })
@@ -103,6 +104,7 @@ export class BlogController {
       dataUpdate,
       uploadedFiles,
     );
+    this.taskService.updateCronTime(updateFeedback);
 
     return new AResponseOk({
       message: 'Cập nhật blog thành công',

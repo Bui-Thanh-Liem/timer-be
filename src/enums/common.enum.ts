@@ -1,8 +1,6 @@
 export enum ETypeTimer {
     NO = "NO",
-    HOURS = "HOURS",
-    DAY = "DAY",
-    WEEK = "WEEK",
+    SCHEDULED = "HOURS"
 }
 
 export enum ETimer {
@@ -10,3 +8,4 @@ export enum ETimer {
     SCHEDULED = "SCHEDULED",
     POSTED = "POSTED",
 }
+

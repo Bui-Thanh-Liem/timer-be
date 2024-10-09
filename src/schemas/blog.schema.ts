@@ -2,9 +2,6 @@ import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {
   IBlog,
-  ICategory,
-  IFeedBack,
-  ISubCategory,
   ITimer,
   IUser,
 } from 'src/interfaces/models';

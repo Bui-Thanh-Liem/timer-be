@@ -14,13 +14,14 @@ export class TasksService {
     // Check exist , if exist then clear
     if (this.cronJobs.has(blog._id)) {
       this.cronJobs.get(blog._id)?.stop(); // Dừng cron job cũ
+      this.cronJobs.delete(blog._id);
     }
-    
-    // 
-    const timer = this.handleGeneratorCronTime(blog.timer);
-    if(!timer) return;
 
-    // 
+    //
+    const timer = this.handleGeneratorCronTime(blog.timer);
+    if (!timer) return;
+
+    //
     const cronJob = new CronJob(
       timer,
       () => {
@@ -52,16 +53,22 @@ export class TasksService {
     }
   }
 
+  // private handleGeneratorCronTime(cronTime: ITimer) {
+  //   const toJS = JSON.parse(cronTime as any);
+  //   const value = toJS.value;
+
+  //   const timer = {
+  //     NO: '',
+  //     HOURS: `${value} * * * *`,
+  //     DAY: `0 ${value} * * *`,
+  //     WEEK: `0 0 * * ${value}`
+  //   }
+  //   return timer[toJS.type] || '';
+  // }
   private handleGeneratorCronTime(cronTime: ITimer) {
     const toJS = JSON.parse(cronTime as any);
-    const value = toJS.value;
-    
-    const timer = {
-      NO: '',
-      HOURS: `${value} * * * *`,
-      DAY: `0 ${value} * * *`,
-      WEEK: `0 0 * * ${value}`
-    }
-    return timer[toJS.type] || '';
+    const [day, month, year] = toJS.date.split('-');
+    const [hours, minute] = toJS.time.split(':');
+    return `* ${minute} ${hours} ${day} ${month} *` || '';
   }
 }

@@ -7,6 +7,7 @@ import { BlogController } from './blog.controller';
 import { ImageLocalService } from '../imageLocal/imageLocal.service';
 import { ImageLocalSchema } from 'src/schemas/imageLocal.schema';
 import { BlogSchema } from 'src/schemas/blog.schema';
+import { TasksService } from 'src/tasks/tasks.service';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { BlogSchema } from 'src/schemas/blog.schema';
     TokenModule,
   ],
   controllers: [BlogController],
-  providers: [BlogService, ImageLocalService],
+  providers: [BlogService, ImageLocalService, TasksService],
 })
 export class BlogModule {}
